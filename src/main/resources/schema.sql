@@ -69,7 +69,6 @@ user_id INTEGER COMMENT 'Идентификатор пользователя',
 
 PRIMARY KEY (document_id, user_id),
 
-FOREIGN KEY (document_id) REFERENCES Document(id),
 FOREIGN KEY (user_id) REFERENCES User(id)
 );
 COMMENT ON TABLE User IS 'Связующая(кросс) таблица пользователь --> документы';
@@ -80,7 +79,6 @@ office_id INTEGER COMMENT 'Идентификатор офиса',
 
 PRIMARY KEY (user_id, office_id),
 
-FOREIGN KEY (office_id) REFERENCES Office(id),
 FOREIGN KEY (user_id) REFERENCES User(id)
 );
 COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "пользователь --> офисы"';
