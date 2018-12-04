@@ -7,29 +7,40 @@ post VARCHAR(50) COMMENT 'Должность пользователя' NOT NULL,
 phone VARCHAR(20) COMMENT 'Номер телефона',
 office_id BIGINT COMMENT 'Идентификатор офиса',
 citizenship_id VARCHAR(10) COMMENT 'Идентификатор гражданства',
-is_identified BOOLEAN COMMENT 'Статус'
+is_identified BOOLEAN COMMENT 'Статус',
 document_id BIGINT COMMENT 'Идентификатор документа',
 
 FOREIGN KEY (office_id) REFERENCES Office(id),
 FOREIGN KEY (citizenship_id) REFERENCES Country(id),
-FOREIGN KEY (document_id) REFERENCES User_Document(id)
+FOREIGN KEY (document_id) REFERENCES Document(id)
 );
 COMMENT ON TABLE User IS 'Пользователи';
 
 CREATE TABLE IF NOT EXISTS User_Document (
-id BIGINT COMMENT 'Уникальный идентификатор документа' PRIMARY KEY AUTO_INCREMENT,
-doc_number VARCHAR(20) COMMENT 'Номер документа',
-doc_date DATE COMMENT 'Дата получения документа'
-doc_type_id BIGINT COMMENT 'ID типа документа',
+document_id INTEGER COMMENT 'Идентификатор документа',
+user_id INTEGER COMMENT 'Идентификатор пользователя',
 
-FOREIGN KEY (doc_type_id) REFERENCES Document_Type(id)
+PRIMARY KEY (document_id, user_id),
+
+FOREIGN KEY (document_id) REFERENCES Document(id),
+FOREIGN KEY (user_id) REFERENCES User(id)
+);
+COMMENT ON TABLE User IS 'Связующая(кросс) таблица пользователь --> документы';
+
+CREATE TABLE IF NOT EXISTS Document (
+id BIGINT COMMENT 'Уникальный идентификатор документа' PRIMARY KEY AUTO_INCREMENT,
+number VARCHAR(20) COMMENT 'Номер документа',
+doc_date DATE COMMENT 'Дата получения документа',
+type_id BIGINT COMMENT 'ID типа документа',
+
+FOREIGN KEY (type_id) REFERENCES Document_Type(id)
 );
 COMMENT ON TABLE User_Document IS 'Документы пользователей';
 
 CREATE TABLE IF NOT EXISTS Document_Type (
 id BIGINT COMMENT 'Уникальный идентификатор',
-doc_name VARCHAR(50) COMMENT 'Вид/Тип документа',
-doc_code VARCHAR(10) COMMENT 'Код типа документа'
+name VARCHAR(50) COMMENT 'Вид/Тип документа',
+code VARCHAR(10) COMMENT 'Код типа документа'
 );
 COMMENT ON TABLE Document_Type IS 'Тип документа пользователя';
 
@@ -64,7 +75,8 @@ COMMENT ON TABLE Organization IS 'Организации';
 CREATE INDEX IX_User_Office_Id ON Office (office_id);
 CREATE INDEX IX_User_Citizenship_Id ON Country (Citizenship_Id);
 CREATE INDEX IX_User_Document_Id ON User_Document (document_id);
-CREATE INDEX IX_User_Doc_Type_Id ON Document_Type (doc_type_id);
+CREATE INDEX IX_User_Type_Id ON Document_Type (type_id);
+CREATE INDEX IX_Document_User_Id ON User_Document (user_id);
 
 --CREATE INDEX UX_User_id ON User (id);
 --CREATE INDEX UX_Country_id ON Country(id);
