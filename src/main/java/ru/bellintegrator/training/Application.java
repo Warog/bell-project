@@ -19,7 +19,7 @@ import java.util.Locale;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
-@ImportResource("spring_mvc_config.xml")
+//@ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
 public class Application {
 
@@ -56,7 +56,7 @@ public class Application {
         return new ApiInfoBuilder()
                 .title("Spring REST Sample with Swagger")
                 .description("Spring REST Sample with Swagger")
-                .contact("https://github.com/azEsm/empty_project")
+                .contact("https://github.com/Warog/bell-project.git")
                 .version("1.0")
                 .build();
     }
