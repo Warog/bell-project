@@ -16,17 +16,6 @@ FOREIGN KEY (document_id) REFERENCES Document(id)
 );
 COMMENT ON TABLE User IS 'Пользователи';
 
-CREATE TABLE IF NOT EXISTS User_Document (
-document_id INTEGER COMMENT 'Идентификатор документа',
-user_id INTEGER COMMENT 'Идентификатор пользователя',
-
-PRIMARY KEY (document_id, user_id),
-
-FOREIGN KEY (document_id) REFERENCES Document(id),
-FOREIGN KEY (user_id) REFERENCES User(id)
-);
-COMMENT ON TABLE User IS 'Связующая(кросс) таблица пользователь --> документы';
-
 CREATE TABLE IF NOT EXISTS Document (
 id BIGINT COMMENT 'Уникальный идентификатор документа' PRIMARY KEY AUTO_INCREMENT,
 number VARCHAR(20) COMMENT 'Номер документа',
@@ -72,16 +61,40 @@ is_Active BOOLEAN COMMENT 'Статус'
 );
 COMMENT ON TABLE Organization IS 'Организации';
 
+----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS User_Document (
+document_id INTEGER COMMENT 'Идентификатор документа',
+user_id INTEGER COMMENT 'Идентификатор пользователя',
+
+PRIMARY KEY (document_id, user_id),
+
+FOREIGN KEY (document_id) REFERENCES Document(id),
+FOREIGN KEY (user_id) REFERENCES User(id)
+);
+COMMENT ON TABLE User IS 'Связующая(кросс) таблица пользователь --> документы';
+
+CREATE TABLE IF NOT EXISTS User_Office (
+user_id INTEGER COMMENT 'Идентификатор пользователя',
+office_id INTEGER COMMENT 'Идентификатор офиса',
+
+PRIMARY KEY (user_id, office_id),
+
+FOREIGN KEY (office_id) REFERENCES Office(id),
+FOREIGN KEY (user_id) REFERENCES User(id)
+);
+COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "пользователь --> офисы"';
+
 CREATE INDEX IX_User_Office_Id ON Office (office_id);
-CREATE INDEX IX_User_Citizenship_Id ON Country (Citizenship_Id);
+CREATE INDEX IX_User_Citizenship_Id ON Country (citizenship_id);
 CREATE INDEX IX_User_Document_Id ON User_Document (document_id);
 CREATE INDEX IX_User_Type_Id ON Document_Type (type_id);
 CREATE INDEX IX_Document_User_Id ON User_Document (user_id);
+CREATE INDEX IX_User_Office_Id ON User_Office (office_id);
+CREATE INDEX IX_Office_User_Id ON User_Office (user_id);
 
 --CREATE INDEX UX_User_id ON User (id);
 --CREATE INDEX UX_Country_id ON Country(id);
 --CREATE INDEX UX_User_Document_id ON User_Document(id);
 --CREATE INDEX UX_Office_Id ON Office(id);
 --CREATE INDEX UX_Organization_id ON Organization(id);
-
-
