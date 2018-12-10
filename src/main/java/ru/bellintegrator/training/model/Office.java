@@ -1,6 +1,8 @@
 package ru.bellintegrator.training.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Office")
 public class Office {
@@ -27,10 +29,6 @@ public class Office {
 
     @Column(name = "org_id", nullable = false)
     private Long orgId;
-
-/**
-Many To One
-*/
 
     public Office() {
 
@@ -91,4 +89,19 @@ Many To One
     public void setActive(Boolean active) {
         isActive = active;
     }
+
+    @ManyToMany(mappedBy = "offices")
+    private Set<Client> clients;
+
+    public Set<Client> getClient() {
+        if (clients == null) {
+            clients = new HashSet<>();
+        }
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
 }

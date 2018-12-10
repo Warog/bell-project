@@ -36,6 +36,37 @@ public class Client {
     @Column(name = "is_identified", nullable = false)
     private Boolean isIdentified;
 
+
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+    @JoinTable(
+            name = "User_Office",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "office_id")
+    )
+    private Set<Office> offices;
+
+    public Set<Office> getOffices() {
+        if (offices == null) {
+            offices = new HashSet<>();
+        }
+        return offices;
+    }
+
+    public void addOffiec(Office office) {
+        getOffices().add(office);
+        office.getClient().add(this);
+    }
+
+    public void removeOffice(Office office) {
+        getOffices().remove(office);
+        office.getClient().remove(this);
+    }
+
     public Client() {
 
     }

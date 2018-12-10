@@ -87,6 +87,7 @@ office_id INTEGER COMMENT 'Идентификатор офиса',
 PRIMARY KEY (user_id, office_id),
 
 FOREIGN KEY (user_id) REFERENCES Client(id)
+FOREIGN KEY (office_id) REFERENCES Office(id)
 );
 COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "пользователь --> офисы"';
 
@@ -96,7 +97,8 @@ CREATE INDEX IX_Client_Document_Id ON Document (id);
 CREATE INDEX IX_Document_Type_Id ON Document_Type (id);
 CREATE INDEX IX_Document_User_Id ON User_Document (user_id);
 CREATE INDEX IX_User_Office_User_Id ON User_Office (user_id);
-CREATE INDEX IX_User_Document_User_Id ON User_Office (user_id);
+CREATE INDEX IX_User_Office_Office_Id ON User_Office (office_id);
+CREATE INDEX IX_User_Document_User_Id ON User_Document (user_id);
 CREATE INDEX IX_Office_Organization_Id ON Organization (id);
 
 --CREATE INDEX UX_User_id ON User (id);
