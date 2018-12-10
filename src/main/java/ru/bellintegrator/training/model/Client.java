@@ -36,7 +36,6 @@ public class Client {
     @Column(name = "is_identified", nullable = false)
     private Boolean isIdentified;
 
-
     public Client() {
 
     }
@@ -55,23 +54,23 @@ public class Client {
     /**
      * One To Many
      */
-    private Set<Office> Offices = new HashSet<Office>();
+    private Set<Document> documents = new HashSet<Document>();
 
-    @OneToMany(mappedBy = "Office", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<Office> getOffices() {
-        return this.Offices;
+    @OneToMany(mappedBy = "Document", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Document> getDocuments() {
+        return this.documents;
     }
 
-    public void setOffices(Set<Office> Offices) {
-        this.Offices = Offices;
+    public void setDocuments(Set<Document> documents) {
+        this.documents = documents;
     }
 
-    public void addOffice(Office office) {
-        office.setClient(this);
-        getOffices().add(office);
+    public void addDocument(Document document) {
+        document.setClient(this);
+        getDocuments().add(document);
     }
 
-    public void removeContactTelDetail(Office office) {
-        getOffices().remove(office);
+    public void removeDocument(Document document) {
+        getDocuments().remove(document);
     }
 }

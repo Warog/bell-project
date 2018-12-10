@@ -32,19 +32,6 @@ public class Office {
 Many To One
 */
 
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    public Client getClient() {
-        return this.client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-
     public Office() {
 
     }

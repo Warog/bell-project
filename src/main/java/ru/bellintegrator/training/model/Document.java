@@ -23,6 +23,19 @@ public class Document {
     @Column(name = "type_id", nullable = false)
     private Long type_id;
 
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    public Client getClient() {
+        return this.client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+
     public Document() {
 
     }
