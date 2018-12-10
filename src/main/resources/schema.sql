@@ -1,14 +1,19 @@
 CREATE TABLE IF NOT EXISTS Office (
 id BIGINT COMMENT 'Уникальный идентификатор офиса' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
 name VARCHAR(50) COMMENT 'Название офиса',
 address VARCHAR(100) COMMENT 'Адрес офиса',
 phone VARCHAR(20) COMMENT 'Телефон офиса',
-is_Active BOOLEAN COMMENT 'Статус'
+is_Active BOOLEAN COMMENT 'Статус',
+org_id BIGINT COMMENT 'id организации' NOT NULL,
+
+FOREIGN KEY (org_id) REFERENCES Organization(id)
 );
 COMMENT ON TABLE Office IS 'Офисы';
 
 CREATE TABLE IF NOT EXISTS Document_Type (
-id BIGINT COMMENT 'Уникальный идентификатор',
+id BIGINT COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
 name VARCHAR(50) COMMENT 'Вид/Тип документа',
 code VARCHAR(10) COMMENT 'Код типа документа'
 );
@@ -16,6 +21,7 @@ COMMENT ON TABLE Document_Type IS 'Тип документа пользоват�
 
 CREATE TABLE IF NOT EXISTS Country (
 id INTEGER COMMENT 'Уникальный идентификатор страны' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
 name VARCHAR(50) COMMENT 'Страна',
 code VARCHAR(10) COMMENT 'Код страны'
 );
@@ -23,6 +29,7 @@ COMMENT ON TABLE Country IS 'Страны';
 
 CREATE TABLE IF NOT EXISTS Organization (
 id BIGINT COMMENT 'Уникальный идентификатор организации' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
 name VARCHAR(50) COMMENT 'Имя организации' NOT NULL,
 full_name VARCHAR(50) COMMENT 'Полное имя организации' NOT NULL,
 inn VARCHAR(50) COMMENT 'ИНН' NOT NULL,
@@ -35,6 +42,7 @@ COMMENT ON TABLE Organization IS 'Организации';
 
 CREATE TABLE IF NOT EXISTS Document (
 id BIGINT COMMENT 'Уникальный идентификатор документа' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
 number VARCHAR(20) COMMENT 'Номер документа',
 doc_date DATE COMMENT 'Дата получения документа',
 type_id BIGINT COMMENT 'ID типа документа',
@@ -45,6 +53,7 @@ COMMENT ON TABLE Document IS 'Документы пользователей';
 
 CREATE TABLE IF NOT EXISTS Client (
 id INTEGER COMMENT 'Уникальный идентификатор пользователя' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
 first_name VARCHAR(50) COMMENT 'Имя пользователя' NOT NULL,
 second_name VARCHAR(50) COMMENT 'Фамилия пользователя',
 middle_name VARCHAR(50) COMMENT 'Отчество пользователя',
@@ -88,6 +97,7 @@ CREATE INDEX IX_Document_Type_Id ON Document_Type (id);
 CREATE INDEX IX_Document_User_Id ON User_Document (user_id);
 CREATE INDEX IX_User_Office_User_Id ON User_Office (user_id);
 CREATE INDEX IX_User_Document_User_Id ON User_Office (user_id);
+CREATE INDEX IX_Office_Organization_Id ON Organization (id);
 
 --CREATE INDEX UX_User_id ON User (id);
 --CREATE INDEX UX_Country_id ON Country(id);
