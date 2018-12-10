@@ -1,16 +1,3 @@
-CREATE TABLE IF NOT EXISTS Office (
-id BIGINT COMMENT 'Уникальный идентификатор офиса' PRIMARY KEY AUTO_INCREMENT,
-version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
-name VARCHAR(50) COMMENT 'Название офиса',
-address VARCHAR(100) COMMENT 'Адрес офиса',
-phone VARCHAR(20) COMMENT 'Телефон офиса',
-is_Active BOOLEAN COMMENT 'Статус',
-org_id BIGINT COMMENT 'id организации' NOT NULL,
-
-FOREIGN KEY (org_id) REFERENCES Organization(id)
-);
-COMMENT ON TABLE Office IS 'Офисы';
-
 CREATE TABLE IF NOT EXISTS Document_Type (
 id BIGINT COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
 version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
@@ -40,6 +27,19 @@ is_Active BOOLEAN COMMENT 'Статус'
 );
 COMMENT ON TABLE Organization IS 'Организации';
 
+CREATE TABLE IF NOT EXISTS Office (
+id BIGINT COMMENT 'Уникальный идентификатор офиса' PRIMARY KEY AUTO_INCREMENT,
+version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
+name VARCHAR(50) COMMENT 'Название офиса',
+address VARCHAR(100) COMMENT 'Адрес офиса',
+phone VARCHAR(20) COMMENT 'Телефон офиса',
+is_Active BOOLEAN COMMENT 'Статус',
+org_id BIGINT COMMENT 'id организации' NOT NULL,
+
+FOREIGN KEY (org_id) REFERENCES Organization(id)
+);
+COMMENT ON TABLE Office IS 'Офисы';
+
 CREATE TABLE IF NOT EXISTS Document (
 id BIGINT COMMENT 'Уникальный идентификатор документа' PRIMARY KEY AUTO_INCREMENT,
 version INTEGER COMMENT 'Служебное поле hibernate' NOT NULL,
@@ -62,9 +62,7 @@ phone VARCHAR(20) COMMENT 'Номер телефона',
 citizenship_id VARCHAR(10) COMMENT 'Идентификатор гражданства',
 is_identified BOOLEAN COMMENT 'Статус',
 
-FOREIGN KEY (office_id) REFERENCES Office(id),
-FOREIGN KEY (citizenship_id) REFERENCES Country(id),
-FOREIGN KEY (document_id) REFERENCES Document(id)
+FOREIGN KEY (citizenship_id) REFERENCES Country(id)
 );
 COMMENT ON TABLE Client IS 'Пользователи';
 
@@ -86,7 +84,7 @@ office_id INTEGER COMMENT 'Идентификатор офиса',
 
 PRIMARY KEY (user_id, office_id),
 
-FOREIGN KEY (user_id) REFERENCES Client(id)
+FOREIGN KEY (user_id) REFERENCES Client(id),
 FOREIGN KEY (office_id) REFERENCES Office(id)
 );
 COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "пользователь --> офисы"';
