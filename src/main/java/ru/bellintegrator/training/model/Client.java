@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Client")
+@Entity(name = "ClientController")
 public class Client {
 
     @Id
@@ -57,7 +57,7 @@ public class Client {
         return offices;
     }
 
-    public void addOffiec(Office office) {
+    public void addOffice(Office office) {
         getOffices().add(office);
         office.getClient().add(this);
     }
