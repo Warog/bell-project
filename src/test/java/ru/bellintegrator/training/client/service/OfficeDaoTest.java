@@ -39,7 +39,7 @@ public class OfficeDaoTest {
         list.add(client);
         officeDao.save(office);
 
-        List<Office> offices = officeDao.all();
+        List<Office> offices = officeDao.allWithId(Long.valueOf(1));
         Assert.assertNotNull(offices);
 
         client.addOffice(office);
@@ -54,7 +54,7 @@ public class OfficeDaoTest {
         Client client1 = new Client("Максим", "Максимов", "Максимович", "Вождь", "5135135", Long.getLong("1"), true);
         list.add(client1);
 
-        offices = officeDao.all();
+        offices = officeDao.allWithOrgId(Long.valueOf(1));
         clients = offices.get(1).getClient();
         Assert.assertNotNull(client);
         Assert.assertEquals(1, clients.size());

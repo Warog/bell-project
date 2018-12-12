@@ -6,6 +6,9 @@ import ru.bellintegrator.training.model.Office;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -25,8 +28,9 @@ public class OfficeDaoImpl implements OfficeDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Office> all() {
-        TypedQuery<Office> query = em.createQuery("SELECT h FROM House h", Office.class);
+    public List<Office> allWithOrgId(Long orgId) {
+        TypedQuery<Office> query = em.createQuery("SELECT o FROM Office o WHERE o.org_id = :orgId", Office.class);
+        query.setParameter("orgId", orgId);
         return query.getResultList();
     }
 
@@ -34,8 +38,21 @@ public class OfficeDaoImpl implements OfficeDao {
      * {@inheritDoc}
      */
     @Override
-    public Office loadById(Long id) {
-        return em.find(Office.class, id);
+    public List<Office> allWithId(Long Id) {
+        TypedQuery<Office> query = em.createQuery("SELECT o FROM Office o WHERE o.id = :Id", Office.class);
+        query.setParameter("Id", Id);
+        return query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(Office office) throws Exception{
+        if(office.getId() == null){
+            throw new Exception("id can not be null");
+        }
+        em.merge(office);
     }
 
     /**

@@ -12,6 +12,10 @@ public class ClientView {
     @ApiModelProperty(value = "Уникальный идентификатор", hidden = true, example = "1")
     public String id;
 
+    @NotEmpty
+    @ApiModelProperty(value = "Версия", hidden = true, example = "1")
+    public String version;
+
     @Size(max = 50)
     @NotEmpty(message = "name cannot be null")
     @ApiModelProperty(value = "Имя", example = "Иван")
@@ -48,6 +52,6 @@ public class ClientView {
 
     @Override
     public String toString() {
-            return "{id:" + id + ";name:" + name + ";secondName:" + secondName + ";middleName:" + middleName + ";post:" + post + ";phone:" + phone + ";citizenship_id:" + citizenship_id + ";isIdentified:" + isIdentified + "}";
+            return "{id:" + id + ";name:" + name + ";secondName:" + secondName + ";middleName:" + middleName + ";post:" + post + ";phone:" + phone + ";citizenship_id:" + citizenship_id + ";isActive:" + isIdentified + "}";
         }
 }

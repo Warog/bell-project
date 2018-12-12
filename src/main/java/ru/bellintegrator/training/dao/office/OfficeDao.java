@@ -13,7 +13,7 @@ public interface OfficeDao {
      *
      * @return
      */
-    List<Office> all();
+    List<Office> allWithId(Long id);
 
     /**
      * Получить Office по идентификатору
@@ -21,7 +21,14 @@ public interface OfficeDao {
      * @param id
      * @return
      */
-    Office loadById(Long id);
+    List<Office> allWithOrgId(Long id);
+
+    /**
+     * обновить office
+     *
+     * @param office
+     */
+    void update(Office office) throws Exception;
 
     /**
      * Сохранить office

@@ -1,4 +1,4 @@
-package ru.bellintegrator.training.controller;
+package ru.bellintegrator.training.controller.client;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class ClientController {
                 @ApiResponse(code = 404, message = "Not Found"),
                 @ApiResponse(code = 500, message = "Failure")})
         @PostMapping("/client")
-        public void person(@RequestBody ClientView client) {
+        public void client(@RequestBody ClientView client) {
             clientService.add(client);
         }
 
