@@ -41,9 +41,16 @@ public class ClientView {
     @ApiModelProperty(value = "Телефон", example = "31231232")
     public String phone;
 
-    @Size(max = 10)
     @NotEmpty(message = "name cannot be null")
-    @ApiModelProperty(value = "идентификатор гражданства", example = "10")
+    @ApiModelProperty(value = "идентификатор офиса", example = "10")
+    public String office_id;
+
+    @NotEmpty(message = "name cannot be null")
+    @ApiModelProperty(value = "идентификатор документа", example = "11")
+    public String document_id;
+
+    @NotEmpty(message = "name cannot be null")
+    @ApiModelProperty(value = "идентификатор гражданства", example = "12")
     public String citizenship_id;
 
     @NotEmpty(message = "name cannot be null")
@@ -52,6 +59,6 @@ public class ClientView {
 
     @Override
     public String toString() {
-            return "{id:" + id + ";name:" + name + ";secondName:" + secondName + ";middleName:" + middleName + ";post:" + post + ";phone:" + phone + ";citizenship_id:" + citizenship_id + ";isActive:" + isIdentified + "}";
+            return "{id:" + id + ";name:" + name + ";secondName:" + secondName + ";middleName:" + middleName + ";post:" + post + ";phone:" + phone + ":office_id:" + office_id + ";document_id:" + document_id + ";citizenship_id:" + citizenship_id + ";isActive:" + isIdentified + "}";
         }
 }

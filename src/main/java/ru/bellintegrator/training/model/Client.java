@@ -1,5 +1,7 @@
 package ru.bellintegrator.training.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,53 +35,119 @@ public class Client {
     @Column(name = "citizenship_id", nullable = false)
     private Long citizenshipId;
 
+    @Column(name = "office_id", nullable = false)
+    private Long officeId;
+
+    @Column(name = "document_id", nullable = false)
+    private Long documentId;
+
     @Column(name = "is_identified", nullable = false)
     private Boolean isIdentified;
 
-
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "User_Office",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "office_id")
-    )
-    private Set<Office> offices;
-
-    public Set<Office> getOffices() {
-        if (offices == null) {
-            offices = new HashSet<>();
-        }
-        return offices;
-    }
-
-    public void addOffice(Office office) {
-        getOffices().add(office);
-        office.getClient().add(this);
-    }
-
-    public void removeOffice(Office office) {
-        getOffices().remove(office);
-        office.getClient().remove(this);
-    }
 
     public Client() {
 
     }
 
-    public Client(String firstName, String secondName, String middleName, String post, String phone, Long citizenshipId, Boolean isIdentified) {
+    public Client(String firstName, String secondName, String middleName, String post, String phone, Long officeId, Long documentId, Long citizenshipId, Boolean isIdentified) {
 
         this.firistName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.post = post;
         this.phone = phone;
+        this.officeId = officeId;
+        this.documentId = documentId;
         this.citizenshipId = citizenshipId;
         this.isIdentified = isIdentified;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public String getFiristName() {
+        return firistName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Long getCitizenshipId() {
+        return citizenshipId;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public Long getDocumentId() {
+        return documentId;
+    }
+
+    public Boolean getIsIdentified() {
+        return isIdentified;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public void setFiristName(String firstName) {
+        this.firistName = firstName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setCitizenshipId(Long citizenshipId) {
+        this.citizenshipId = citizenshipId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
+    }
+
+    public void setDocumentId(Long documentId) {
+        this.documentId = documentId;
+    }
+
+    public void setIdentified(Boolean identified) {
+        isIdentified = identified;
     }
 
     /**

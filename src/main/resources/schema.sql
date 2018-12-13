@@ -60,9 +60,13 @@ middle_name VARCHAR(50) COMMENT 'Отчество пользователя',
 post VARCHAR(50) COMMENT 'Должность пользователя' NOT NULL,
 phone VARCHAR(20) COMMENT 'Номер телефона',
 citizenship_id VARCHAR(10) COMMENT 'Идентификатор гражданства',
+office_id INTEGER COMMENT 'Идентификатор офиса',
+document_id INTEGER COMMENT 'Идентификатор документа'
 is_identified BOOLEAN COMMENT 'Статус',
 
-FOREIGN KEY (citizenship_id) REFERENCES Country(id)
+FOREIGN KEY (citizenship_id) REFERENCES Country(id),
+FOREIGN KEY (office_id) REFERENCES Office(id),
+FOREIGN KEY (document_id) REFERENCES Document(id)
 );
 COMMENT ON TABLE Client IS 'Пользователи';
 
@@ -78,16 +82,15 @@ FOREIGN KEY (user_id) REFERENCES Client(id)
 );
 COMMENT ON TABLE User_Document IS 'Связующая(кросс) таблица пользователь --> документы';
 
-CREATE TABLE IF NOT EXISTS User_Office (
-user_id INTEGER COMMENT 'Идентификатор пользователя',
+CREATE TABLE IF NOT EXISTS Organization_Office (
+org_id INTEGER COMMENT 'Идентификатор пользователя',
 office_id INTEGER COMMENT 'Идентификатор офиса',
 
-PRIMARY KEY (user_id, office_id),
+PRIMARY KEY (org_id, office_id),
 
-FOREIGN KEY (user_id) REFERENCES Client(id),
-FOREIGN KEY (office_id) REFERENCES Office(id)
+FOREIGN KEY (org_id) REFERENCES Organization(id),
 );
-COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "пользователь --> офисы"';
+COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "Организация --> офис';
 
 CREATE INDEX IX_Client_Office_Id ON Office (id);
 CREATE INDEX IX_Client_Citizenship_Id ON Country (id);

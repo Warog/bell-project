@@ -3,6 +3,7 @@ package ru.bellintegrator.training;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -19,7 +20,8 @@ import java.util.Locale;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
-//@ImportResource("spring_mvc_config.xml")
+@ImportResource("spring_mvc_config.xml")
+//@ComponentScan("ru.bellintegrator.training")
 @SpringBootApplication
 public class Application {
 
@@ -51,6 +53,7 @@ public class Application {
                 .paths(regex("/office.*"))
                 .build();
     }
+
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()

@@ -2,6 +2,8 @@ package ru.bellintegrator.training.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
 * Организация
@@ -115,5 +117,27 @@ public class Organization {
 
     public void setActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    /**
+     * One To Many
+     */
+    private Set<Office> offices = new HashSet<Office>();
+
+    @OneToMany(mappedBy = "Office", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Office> getOffices() {
+        return this.offices;
+    }
+
+    public void setOffices(Set<Office> offices) {
+        this.offices = offices;
+    }
+
+    public void addOffice(Office office) {
+        getOffices().add(office);
+    }
+
+    public void removeOffice(Office office) {
+        getOffices().remove(office);
     }
 }

@@ -90,18 +90,15 @@ public class Office {
         isActive = active;
     }
 
-    @ManyToMany(mappedBy = "offices")
-    private Set<Client> clients;
+    private Office office;
 
-    public Set<Client> getClient() {
-        if (clients == null) {
-            clients = new HashSet<>();
-        }
-        return clients;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    public Office getOrganization() {
+        return this.office;
     }
 
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
+    public void setOrganization(Client client) {
+        this.office = office;
     }
-
 }
