@@ -61,7 +61,7 @@ post VARCHAR(50) COMMENT 'Должность пользователя' NOT NULL,
 phone VARCHAR(20) COMMENT 'Номер телефона',
 citizenship_id VARCHAR(10) COMMENT 'Идентификатор гражданства',
 office_id INTEGER COMMENT 'Идентификатор офиса',
-document_id INTEGER COMMENT 'Идентификатор документа'
+document_id INTEGER COMMENT 'Идентификатор документа',
 is_identified BOOLEAN COMMENT 'Статус',
 
 FOREIGN KEY (citizenship_id) REFERENCES Country(id),
@@ -88,17 +88,17 @@ office_id INTEGER COMMENT 'Идентификатор офиса',
 
 PRIMARY KEY (org_id, office_id),
 
-FOREIGN KEY (org_id) REFERENCES Organization(id),
+FOREIGN KEY (org_id) REFERENCES Organization(id)
 );
-COMMENT ON TABLE User_Office IS 'Связующая(кросс) таблица "Организация --> офис';
+COMMENT ON TABLE Organization_Office IS 'Связующая(кросс) таблица "Организация --> офис';
 
 CREATE INDEX IX_Client_Office_Id ON Office (id);
 CREATE INDEX IX_Client_Citizenship_Id ON Country (id);
 CREATE INDEX IX_Client_Document_Id ON Document (id);
 CREATE INDEX IX_Document_Type_Id ON Document_Type (id);
 CREATE INDEX IX_Document_User_Id ON User_Document (user_id);
-CREATE INDEX IX_User_Office_User_Id ON User_Office (user_id);
-CREATE INDEX IX_User_Office_Office_Id ON User_Office (office_id);
+CREATE INDEX IX_Organization_Office_User_Id ON Organization_Office (org_id);
+CREATE INDEX IX_Organization_Office_Office_Id ON Organization_Office (office_id);
 CREATE INDEX IX_User_Document_User_Id ON User_Document (user_id);
 CREATE INDEX IX_Office_Organization_Id ON Organization (id);
 

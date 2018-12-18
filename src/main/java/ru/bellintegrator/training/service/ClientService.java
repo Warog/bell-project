@@ -1,15 +1,17 @@
 package ru.bellintegrator.training.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import ru.bellintegrator.training.model.Client;
 import ru.bellintegrator.training.view.ClientView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Сервис
  */
 @Validated
+@Service
 public interface ClientService {
 
     /**
@@ -24,5 +26,5 @@ public interface ClientService {
      *
      * @return {@Client}
      */
-    List<ClientView> clients();
+    ClientView clientView();
 }

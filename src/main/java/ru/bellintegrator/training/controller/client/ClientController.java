@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.bellintegrator.training.model.Client;
 import ru.bellintegrator.training.service.ClientService;
 import ru.bellintegrator.training.view.ClientView;
 
@@ -37,8 +38,8 @@ public class ClientController {
 
         @ApiOperation(value = "Список клиентов", httpMethod = "GET")
         @GetMapping("/client")
-        public List<ClientView> clients() {
-            return clientService.clients();
+        public ClientView clientView() {
+            return clientService.clientView();
         }
 
 }

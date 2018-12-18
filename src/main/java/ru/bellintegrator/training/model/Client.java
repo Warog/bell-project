@@ -157,19 +157,24 @@ public class Client {
 
     @OneToMany(mappedBy = "Document", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Document> getDocuments() {
-        return this.documents;
+        if (documents == null) {
+            documents = new HashSet<>();
+        }
+        return documents;
     }
 
-    public void setDocuments(Set<Document> documents) {
-        this.documents = documents;
+    public Set<Document> setDocuments(Set<Document> documents) {
+        if (documents == null) {
+            documents = new HashSet<>();
+        }
+        return documents;
     }
 
     public void addDocument(Document document) {
-        document.setClient(this);
         getDocuments().add(document);
     }
 
-    public void removeDocument(Document document) {
-        getDocuments().remove(document);
-    }
+//    public void removeDocument(Document document) {
+//        getDocuments().remove(document);
+//    }
 }

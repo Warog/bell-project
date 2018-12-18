@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.training.model.Client;
 import ru.bellintegrator.training.view.ClientView;
-import ru.bellintegrator.training.dao.client.ClientDao;
+
 
 import java.util.List;
 
@@ -15,15 +15,17 @@ import java.util.List;
  */
 @Service
 public class ClientServiceImpl implements ClientService {
-    private final ClientDao dao;
-    private final MapperFacade mapperFacade;
+//    private final ClientDao dao;
+//    private final MapperFacade mapperFacade;
 
-    @Autowired
-    public ClientServiceImpl(ClientDao dao, MapperFacade mapperFacade) {
-        this.dao = dao;
-        this.mapperFacade = mapperFacade;
-    }
+//    @Autowired
+//    public ClientServiceImpl(ClientDao dao, MapperFacade mapperFacade) {
+//        this.dao = dao;
+//        this.mapperFacade = mapperFacade;
+//    }
 
+    private Client client = new Client("Иван", "Иванов", "Иванович", "Охранник", "234567", Long.valueOf(1), Long.valueOf(1), Long.valueOf(1), true);
+    private ClientView clientView = new ClientView();
     /**
      * {@inheritDoc}
      */
@@ -31,17 +33,20 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public void add(ClientView view) {
         Client client = new Client(view.name, view.secondName, view.middleName, view.post, view.phone, Long.valueOf(view.office_id), Long.valueOf(view.document_id), Long.valueOf(view.citizenship_id), view.isIdentified);
-        dao.save(client);
+//        dao.save(client);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
-    public List<ClientView> clients() {
-        List<Client> all = dao.allWithId(Long.valueOf(1));
-        return mapperFacade.mapAsList(all, ClientView.class);
+    @Transactional
+    public ClientView clientView(){
+//        Client client = new Client(clientView().name, clientView().secondName, clientView().middleName, clientView().post, clientView().phone, Long.valueOf(clientView().office_id), Long.valueOf(clientView().document_id), Long.valueOf(clientView().citizenship_id), clientView().isIdentified);
+        System.out.println(client.getFiristName());
+
+        return clientView();
     }
+
 }
 
